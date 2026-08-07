@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "filesystem_sandbox": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/03-filesystem-sandbox-server/dist/index.js"
+      ],
+      "env": {
+        "SANDBOX_ROOT": "E:/My web projects/Model-Context-Protocol-MCP-sandbox"
+      }
+    }
+  }
+}

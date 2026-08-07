@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Databases & local logs
+*.db
+*.sqlite
+*.log
+
+# OS & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

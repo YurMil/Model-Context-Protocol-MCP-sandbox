@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "sqlite_notes": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+      ]
+    }
+  }
+}

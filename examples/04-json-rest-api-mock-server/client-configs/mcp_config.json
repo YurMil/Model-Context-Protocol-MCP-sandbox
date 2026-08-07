@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "jsonplaceholder_mock": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/04-json-rest-api-mock-server",
+        "server.py"
+      ]
+    }
+  }
+}

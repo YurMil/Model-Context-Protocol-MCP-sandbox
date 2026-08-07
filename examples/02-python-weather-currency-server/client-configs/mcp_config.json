@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "weather_currency": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/02-python-weather-currency-server",
+        "server.py"
+      ]
+    }
+  }
+}
