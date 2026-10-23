@@ -1,7 +1,7 @@
 {
   "name": "example-03-filesystem-sandbox-server",
   "version": "1.0.0",
-  "description": "Safe path-bounded local filesystem MCP server",
+  "description": "Safe path-bounded local filesystem MCP server using McpServer and Zod",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "inspect": "npx @modelcontextprotocol/inspector tsx src/index.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

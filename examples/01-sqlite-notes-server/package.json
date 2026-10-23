@@ -1,7 +1,7 @@
 {
   "name": "example-01-sqlite-notes-server",
   "version": "1.0.0",
-  "description": "Sample TypeScript MCP Server managing a local SQLite database",
+  "description": "Modern TypeScript MCP Server managing a local SQLite database using McpServer and Zod",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -11,8 +11,9 @@
     "inspect": "npx @modelcontextprotocol/inspector tsx src/index.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "better-sqlite3": "^11.0.0"
+    "@modelcontextprotocol/sdk": "^1.1.0",
+    "better-sqlite3": "^11.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.10",

@@ -4,7 +4,7 @@ Copy-paste configuration templates for connecting your MCP servers to popular MC
 
 ---
 
-## 🖥️ Claude Desktop Config (`claude_desktop_config.json`)
+## 🖥️ Claude Desktop
 
 - **Windows Path**: `%APPDATA%\Claude\claude_desktop_config.json`
 - **macOS Path**: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -12,38 +12,25 @@ Copy-paste configuration templates for connecting your MCP servers to popular MC
 ```json
 {
   "mcpServers": {
-    "sqlite_sandbox": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sqlite",
-        "--db-path",
-        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/sandbox.db"
-      ]
-    },
-    "custom_ts_server": {
+    "sqlite_notes": {
       "command": "node",
       "args": [
-        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/servers/ts-sqlite-server/dist/index.js"
-      ],
-      "env": {
-        "DATABASE_URL": "postgresql://user:pass@localhost:5432/mydb",
-        "NODE_ENV": "development"
-      }
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+      ]
     },
-    "python_fastmcp_server": {
+    "python_weather": {
       "command": "uv",
       "args": [
         "run",
         "--directory",
-        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/servers/py-fetch-server",
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/02-python-weather-currency-server",
         "server.py"
       ]
     },
-    "remote_sse_server": {
-      "url": "https://mcp.mycompany.com/sse",
+    "remote_team_server": {
+      "url": "https://mcp.internal.company.com/sse",
       "headers": {
-        "Authorization": "Bearer my_secret_token_123"
+        "Authorization": "Bearer sec_token_abc123"
       }
     }
   }
@@ -52,14 +39,24 @@ Copy-paste configuration templates for connecting your MCP servers to popular MC
 
 ---
 
-## 💻 Cursor IDE MCP Config (`.cursor/mcp.json` or Settings > MCP)
+## 💻 Cursor IDE
+
+Configure via **Cursor Settings > Features > MCP**, or create `.cursor/mcp.json` in your workspace root:
 
 ```json
 {
   "mcpServers": {
-    "dev_tools": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-everything"]
+    "sqlite_notes": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+      ]
+    },
+    "remote_api_service": {
+      "url": "https://mcp-gateway.example.com/sse",
+      "headers": {
+        "Authorization": "Bearer secret-token"
+      }
     }
   }
 }
@@ -67,18 +64,80 @@ Copy-paste configuration templates for connecting your MCP servers to popular MC
 
 ---
 
-## 🚀 Antigravity / Gemini CLI / Custom Host Config
+## 🌊 Windsurf (Codeium)
+
+- **Config Path**: `~/.codeium/windsurf/mcp_config.json`
 
 ```json
 {
-  "mcp": {
-    "servers": {
-      "filesystem": {
-        "command": "npx",
+  "mcpServers": {
+    "sqlite_notes": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+      ]
+    },
+    "filesystem_sandbox": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/03-filesystem-sandbox-server/dist/index.js"
+      ],
+      "env": {
+        "SANDBOX_ROOT": "E:/My web projects/Model-Context-Protocol-MCP-sandbox"
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🤖 Cline & Roo Code (VS Code Extension)
+
+- **Config Path**: Open Cline extension settings -> **MCP Servers** tab (edits `cline_mcp_settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "sqlite_notes": {
+      "command": "node",
+      "args": [
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "list_all_notes",
+        "search_notes"
+      ]
+    },
+    "weather_currency": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/02-python-weather-currency-server",
+        "server.py"
+      ],
+      "disabled": false
+    }
+  }
+}
+```
+
+---
+
+## ⚡ Zed Editor
+
+- **Config Path**: `~/.config/zed/settings.json` (or `%APPDATA%\Zed\settings.json` on Windows):
+
+```json
+{
+  "context_servers": {
+    "sqlite-notes": {
+      "command": {
+        "path": "node",
         "args": [
-          "-y",
-          "@modelcontextprotocol/server-filesystem",
-          "E:/My web projects/Model-Context-Protocol-MCP-sandbox"
+          "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
         ]
       }
     }
@@ -88,19 +147,47 @@ Copy-paste configuration templates for connecting your MCP servers to popular MC
 
 ---
 
-## 🔀 LiteLLM OpenAI Proxy Integration with Local Ollama
+## 🚀 Antigravity / Gemini CLI
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "notes_server": {
+        "command": "node",
+        "args": [
+          "E:/My web projects/Model-Context-Protocol-MCP-sandbox/examples/01-sqlite-notes-server/dist/index.js"
+        ]
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🔀 LiteLLM OpenAI Proxy with Ollama & MCP
 
 ```yaml
 # litellm_config.yaml
 model_list:
-  - model_name: local-mcp-model
+  - model_name: qwen-coder
     litellm_params:
-      model: ollama/llama3.1:8b-instruct
+      model: ollama/qwen2.5-coder:14b
       api_base: http://localhost:11434
-      num_ctx: 8192
+      num_ctx: 16384
+  - model_name: llama-3.3
+    litellm_params:
+      model: ollama/llama3.3:70b
+      api_base: http://localhost:11434
+      num_ctx: 16384
+
+router_settings:
+  routing_strategy: usage-based-routing-v2
+  timeout: 60
 ```
 
-Launch:
+Start the proxy:
 ```bash
 litellm --config litellm_config.yaml --port 4000
 ```
