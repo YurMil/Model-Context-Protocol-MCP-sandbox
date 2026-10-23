@@ -1,4 +1,4 @@
-name: MCP Sandbox CI
+name: CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test-typescript:
-    name: Build & Test TypeScript Servers
+    name: TypeScript Build & Smoke Tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,21 +49,22 @@ jobs:
           # Verify tool call execution
           node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" call-tool create_note '{"title":"CI Test","content":"Smoke test in GitHub Actions"}'
           node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" call-tool list_all_notes
+          node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" read-resource sqlite://notes/schema
 
-  check-python-examples:
-    name: Validate Python FastMCP Examples
+  validate-python-examples:
+    name: Python FastMCP Validation
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install uv Package Manager
-        uses: astral-sh/setup-uv@v3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
 
-      - name: Install Python 3.11
+      - name: Set up Python 3.11
         run: uv python install 3.11
 
       - name: Syntax Check Weather & Currency Server
@@ -75,3 +76,14 @@ jobs:
         run: |
           cd examples/04-json-rest-api-mock-server
           uv run python -m py_compile server.py
+
+  verify-docker-build:
+    name: Docker Build Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Services
+        run: docker compose build

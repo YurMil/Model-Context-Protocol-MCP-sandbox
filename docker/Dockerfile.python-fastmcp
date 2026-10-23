@@ -14,7 +14,7 @@ COPY ${SERVER_DIR}/pyproject.toml ./
 COPY ${SERVER_DIR}/server.py ./
 
 # Install dependencies using uv
-RUN uv pip install --system -r <(uv pip compile pyproject.toml)
+RUN uv pip compile pyproject.toml -o requirements.txt && uv pip install --system -r requirements.txt
 
 # Set runtime environment variables
 ENV MCP_TRANSPORT=sse
