@@ -64,3 +64,10 @@ async function fetchWithRetry(url: string, retries = 3, delayMs = 500) {
   }
 }
 ```
+
+---
+
+## 🏛️ Advanced Architecture: Anti-Collapse & Self-Correction
+
+For comprehensive architectural patterns on preventing model collapse, two-phase verification (`dry_run`), context payload budgeting, and circuit breakers, see:
+👉 [`resilient-architecture-and-self-correction.md`](resilient-architecture-and-self-correction.md)

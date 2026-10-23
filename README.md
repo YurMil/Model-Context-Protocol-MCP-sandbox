@@ -67,6 +67,7 @@ The **Model Context Protocol (MCP)** is an open specification designed by Anthro
 - [`docs/05-testing-and-sandbox/benchmarking-evals.md`](docs/05-testing-and-sandbox/benchmarking-evals.md) — Evaluating tool accuracy across small local models vs large cloud models.
 
 ### 6. 🛡️ Security & Best Practices
+- [`docs/06-security-and-best-practices/resilient-architecture-and-self-correction.md`](docs/06-security-and-best-practices/resilient-architecture-and-self-correction.md) — Architectural patterns to prevent model collapse, payload budgeting, two-phase verification (`dry_run`), and self-healing error loops.
 - [`docs/06-security-and-best-practices/security-guidelines.md`](docs/06-security-and-best-practices/security-guidelines.md) — Hardening MCP against prompt injection, directory traversal, and unauthorized tool calls.
 - [`docs/06-security-and-best-practices/error-handling-resilience.md`](docs/06-security-and-best-practices/error-handling-resilience.md) — Standardized JSON-RPC errors, rate limiting, and exponential backoff retry rules.
 
