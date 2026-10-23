@@ -42,10 +42,12 @@ The **Model Context Protocol (MCP)** is an open specification designed by Anthro
 
 ### 3. ⚙️ MCP Core Specification & Primitives
 - [`docs/03-mcp-protocol-core/specification.md`](docs/03-mcp-protocol-core/specification.md) — JSON-RPC 2.0 transport layers (`stdio`, `SSE`, WebSockets) and lifecycle messages.
+- [`docs/03-mcp-protocol-core/streamable-http.md`](docs/03-mcp-protocol-core/streamable-http.md) — Streamable HTTP transport, remote proxying, and session state.
 - [`docs/03-mcp-protocol-core/tools-primitives.md`](docs/03-mcp-protocol-core/tools-primitives.md) — Defining executable Tools, schema validation, and tool annotations.
 - [`docs/03-mcp-protocol-core/resources-primitives.md`](docs/03-mcp-protocol-core/resources-primitives.md) — Exposing Resources, custom URI schemes (`file://`, `db://`), and dynamic templates.
 - [`docs/03-mcp-protocol-core/prompts-primitives.md`](docs/03-mcp-protocol-core/prompts-primitives.md) — Exposing Prompts and re-usable context templates to LLM applications.
 - [`docs/03-mcp-protocol-core/sampling-and-roots.md`](docs/03-mcp-protocol-core/sampling-and-roots.md) — Server-initiated LLM sampling (`mcp/createMessage`) and filesystem security roots.
+- [`docs/03-mcp-protocol-core/logging-and-notifications.md`](docs/03-mcp-protocol-core/logging-and-notifications.md) — Structured logging, progress tracking, and request cancellation.
 
 ### 4. 🔌 Service Integrations
 - [`docs/04-service-integrations/database-connectors.md`](docs/04-service-integrations/database-connectors.md) — Building MCP servers for PostgreSQL, Neon, Supabase, SQLite, and Redis.
@@ -54,6 +56,7 @@ The **Model Context Protocol (MCP)** is an open specification designed by Anthro
 - [`docs/04-service-integrations/enterprise-auth.md`](docs/04-service-integrations/enterprise-auth.md) — Authentication patterns: OAuth2, API key vaults, environment sanitation, and RBAC.
 
 ### 5. 🧪 Testing & Sandbox Tools
+- [`tools/mcp-cli-runner/`](tools/mcp-cli-runner/README.md) — Standalone Headless CLI testing tool for inspecting and invoking MCP servers directly in terminal.
 - [`docs/05-testing-and-sandbox/mcp-inspector-guide.md`](docs/05-testing-and-sandbox/mcp-inspector-guide.md) — Debugging MCP servers using `@modelcontextprotocol/inspector`.
 - [`docs/05-testing-and-sandbox/test-harness-and-mocking.md`](docs/05-testing-and-sandbox/test-harness-and-mocking.md) — Unit and integration test suites for TypeScript (Vitest) and Python (pytest).
 - [`docs/05-testing-and-sandbox/benchmarking-evals.md`](docs/05-testing-and-sandbox/benchmarking-evals.md) — Evaluating tool accuracy across small local models vs large cloud models.

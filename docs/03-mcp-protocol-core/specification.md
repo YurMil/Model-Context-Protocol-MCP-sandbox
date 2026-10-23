@@ -71,11 +71,16 @@ One-way message that does not expect a response (`id` is omitted).
 - Messages are formatted as UTF-8 encoded JSON strings terminated by a newline (`\n`).
 - Standard error (`stderr`) is strictly reserved for server logging/diagnostics (ignored by JSON-RPC parser).
 
-### Server-Sent Events (`SSE`)
-- **Initialization**: Client establishes HTTP GET connection to `/sse`. Server responds with an SSE event containing an endpoint URI for POST requests:
-  ```http
-  event: endpoint
-  data: /message?sessionId=abc-123
-  ```
-- **Client Requests**: Sent via HTTP POST to `/message?sessionId=abc-123`.
-- **Server Notifications/Responses**: Sent down the established SSE stream.
+### Streamable HTTP & Server-Sent Events (`SSE`)
+- **Streamable HTTP (Modern Standard)**: Single-endpoint HTTP POST (`/mcp`) supporting chunked streaming and SSE responses, stateful session identifiers (`Mcp-Session-Id`), and Bearer authentication headers. See [`streamable-http.md`](streamable-http.md).
+- **Legacy SSE**: Client establishes HTTP GET connection to `/sse`. Server responds with an endpoint URI for POST requests (`/message?sessionId=...`).
+
+---
+
+## 🧭 Advanced Protocol Primitives
+
+- **Structured Logging (`logging/message`)**: Structured RFC-5424 severity logs without polluting standard input/output.
+- **Progress Tracking (`notifications/progress`)**: Real-time progress percentage notifications for long-running operations.
+- **Request Cancellation (`notifications/cancelled`)**: Immediate cancellation of in-flight execution when a user halts the generation.
+
+See full documentation in [`logging-and-notifications.md`](logging-and-notifications.md).
