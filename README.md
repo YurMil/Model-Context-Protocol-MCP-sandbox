@@ -40,6 +40,7 @@ The **Model Context Protocol (MCP)** is an open specification designed by Anthro
 
 ### 2. 🧠 LLM Provider Integration
 - [`docs/02-llm-providers/provider-architecture.md`](docs/02-llm-providers/provider-architecture.md) — Architectural patterns for connecting LLMs to MCP tool definitions.
+- [`docs/02-llm-providers/model-scale-and-multimodal-mcp.md`](docs/02-llm-providers/model-scale-and-multimodal-mcp.md) — Impact of model size (1B edge to 200B+ reasoning) and multimodality (vision, screenshots, audio) on MCP design.
 - [`docs/02-llm-providers/local-models.md`](docs/02-llm-providers/local-models.md) — Running MCP with local models via Ollama, LM Studio, vLLM, and Llama.cpp.
 - [`docs/02-llm-providers/cloud-api-models.md`](docs/02-llm-providers/cloud-api-models.md) — Integration with cloud APIs (OpenAI, Anthropic Claude, Google Gemini, Groq, Mistral).
 - [`docs/02-llm-providers/subscription-proxies.md`](docs/02-llm-providers/subscription-proxies.md) — Working with API proxies, OpenRouter, LiteLLM gateways, and key rotation.

@@ -93,5 +93,12 @@ Connecting Large Language Models (LLMs) to MCP requires converting MCP tool desc
   - **Compact Descriptions**: Keep parameter descriptions clear and concise.
 
 ### 2. Schema Strictness Variations
-- **Problem**: Cloud models (Claude 3.5, GPT-4o) handle complex nested JSON Schemas effortlessly, whereas smaller local models (Llama 3.1 8B, Qwen 2.5 7B) can hallucinate invalid arguments if schemas are too complex.
-- **Solution**: Flatten schemas and enforce validation at the MCP server level using JSON Schema validators (e.g. `ajv` or `pydantic`).
+- **Problem**: Cloud models (Claude 3.7, GPT-4o, Gemini 2.0) handle complex nested JSON Schemas effortlessly, whereas smaller local models (Llama 3.2 3B, Qwen 2.5 7B) can hallucinate invalid arguments if schemas are too complex.
+- **Solution**: Flatten schemas and enforce validation at the MCP server level using JSON Schema validators (e.g. `zod` or `pydantic`).
+
+---
+
+## 📚 Deep Dive: Model Scale & Multimodality
+
+For detailed architectural guidelines on tailoring MCP tool schemas, visual outputs, and error handling across model sizes (1B edge models to 200B+ frontier reasoning models) and multimodal inputs, see:
+👉 [`model-scale-and-multimodal-mcp.md`](model-scale-and-multimodal-mcp.md)
