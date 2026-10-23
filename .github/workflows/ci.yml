@@ -1,0 +1,77 @@
+name: MCP Sandbox CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test-typescript:
+    name: Build & Test TypeScript Servers
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build 01-sqlite-notes-server
+        run: |
+          cd examples/01-sqlite-notes-server
+          npm install
+          npm run build
+
+      - name: Build 03-filesystem-sandbox-server
+        run: |
+          cd examples/03-filesystem-sandbox-server
+          npm install
+          npm run build
+
+      - name: Build tools/mcp-cli-runner
+        run: |
+          cd tools/mcp-cli-runner
+          npm install
+          npm run build
+
+      - name: End-to-End CLI Smoke Test (Notes Server)
+        run: |
+          cd tools/mcp-cli-runner
+          # Verify list-tools handshake and tools discovery
+          node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" list-tools
+          # Verify tool call execution
+          node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" call-tool create_note '{"title":"CI Test","content":"Smoke test in GitHub Actions"}'
+          node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" call-tool list_all_notes
+
+  check-python-examples:
+    name: Validate Python FastMCP Examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install uv Package Manager
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Install Python 3.11
+        run: uv python install 3.11
+
+      - name: Syntax Check Weather & Currency Server
+        run: |
+          cd examples/02-python-weather-currency-server
+          uv run python -m py_compile server.py
+
+      - name: Syntax Check JSONPlaceholder Server
+        run: |
+          cd examples/04-json-rest-api-mock-server
+          uv run python -m py_compile server.py

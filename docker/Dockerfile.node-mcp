@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+ARG SERVER_DIR=examples/01-sqlite-notes-server
+
+COPY ${SERVER_DIR}/package*.json ./
+COPY ${SERVER_DIR}/tsconfig.json ./
+COPY ${SERVER_DIR}/src ./src
+
+RUN npm install && npm run build
+
+# Production runtime image
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+
+RUN npm install --omit=dev
+
+ENV NODE_ENV=production
+
+CMD ["node", "dist/index.js"]

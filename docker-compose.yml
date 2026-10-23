@@ -1,0 +1,30 @@
+services:
+  # FastMCP Weather & Currency Service (SSE / Streamable HTTP on port 8000)
+  weather-currency-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.python-fastmcp
+      args:
+        SERVER_DIR: examples/02-python-weather-currency-server
+    container_name: mcp-weather-currency
+    ports:
+      - "8000:8000"
+    environment:
+      - MCP_TRANSPORT=sse
+      - PORT=8000
+    restart: unless-stopped
+
+  # FastMCP JSONPlaceholder REST API Mock Service (SSE / Streamable HTTP on port 8001)
+  jsonplaceholder-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.python-fastmcp
+      args:
+        SERVER_DIR: examples/04-json-rest-api-mock-server
+    container_name: mcp-jsonplaceholder
+    ports:
+      - "8001:8001"
+    environment:
+      - MCP_TRANSPORT=sse
+      - PORT=8001
+    restart: unless-stopped

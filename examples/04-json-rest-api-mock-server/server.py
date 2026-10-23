@@ -42,4 +42,10 @@ async def create_post_draft(req: CreatePostRequest) -> str:
         return f"Mock Post Created! Response: {res.text}"
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    import os
+    transport = os.getenv("MCP_TRANSPORT", "stdio")
+    port = int(os.getenv("PORT", "8001"))
+    if transport == "sse":
+        mcp.run(transport="sse", host="0.0.0.0", port=port)
+    else:
+        mcp.run(transport="stdio")

@@ -52,4 +52,10 @@ async def convert_currency(req: CurrencyRequest) -> str:
         return f"{req.amount:.2f} {base} = {converted:.2f} {target} (Exchange Rate: 1 {base} = {rate:.4f} {target})"
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    import os
+    transport = os.getenv("MCP_TRANSPORT", "stdio")
+    port = int(os.getenv("PORT", "8000"))
+    if transport == "sse":
+        mcp.run(transport="sse", host="0.0.0.0", port=port)
+    else:
+        mcp.run(transport="stdio")

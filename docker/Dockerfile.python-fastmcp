@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+FROM python:3.11-slim
+
+# Install uv package manager
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+WORKDIR /app
+
+# Argument to select which example server to build (default: 02-python-weather-currency-server)
+ARG SERVER_DIR=examples/02-python-weather-currency-server
+
+# Copy server files
+COPY ${SERVER_DIR}/pyproject.toml ./
+COPY ${SERVER_DIR}/server.py ./
+
+# Install dependencies using uv
+RUN uv pip install --system -r <(uv pip compile pyproject.toml)
+
+# Set runtime environment variables
+ENV MCP_TRANSPORT=sse
+ENV PORT=8000
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["python", "server.py"]

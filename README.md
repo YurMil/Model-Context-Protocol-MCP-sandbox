@@ -1,5 +1,9 @@
 # Model Context Protocol (MCP) Sandbox & Documentation Hub
 
+[![CI](https://github.com/YurMil/Model-Context-Protocol-MCP-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/YurMil/Model-Context-Protocol-MCP-sandbox/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![MCP Spec](https://img.shields.io/badge/MCP-Specification-orange.svg)](https://modelcontextprotocol.io)
+
 Welcome to the **Model Context Protocol (MCP) Sandbox & Documentation Hub**. This repository serves as a comprehensive, production-grade reference architecture, testing playground, and integration guide for connecting Large Language Models (LLMs)—both local open-weights and cloud APIs—to external services, databases, and APIs using the Model Context Protocol (MCP).
 
 ---
@@ -76,26 +80,36 @@ The **Model Context Protocol (MCP)** is an open specification designed by Anthro
 - [`examples/03-filesystem-sandbox-server/`](examples/03-filesystem-sandbox-server/README.md) — TypeScript: Scoped local file explorer with strict root path validation.
 - [`examples/04-json-rest-api-mock-server/`](examples/04-json-rest-api-mock-server/README.md) — Python FastMCP: Wrapper for JSONPlaceholder public REST API (users, posts, comments).
 
+### 9. 🐳 Docker & Containerization (`docker/`)
+- [`docker/`](docker/README.md) — Multi-container Docker Compose setup for launching remote MCP servers over Streamable HTTP / SSE.
+
 ---
 
 ## ⚡ Quick Start: Testing Your First MCP Server
 
-1. **Install the MCP Inspector**:
+1. **Test with Headless CLI Runner**:
+   ```bash
+   cd tools/mcp-cli-runner && npm install && npm run build
+   node dist/index.js --command node --args "../../examples/01-sqlite-notes-server/dist/index.js" list-tools
+   ```
+2. **Launch with Docker Compose**:
+   ```bash
+   docker compose up -d
+   ```
+3. **Inspect with MCP Inspector**:
    ```bash
    npx @modelcontextprotocol/inspector npx -y @modelcontextprotocol/server-everything
    ```
-2. **Open the Web Inspector**:
-   Navigate to `http://localhost:5173` to test tools, inspect resources, and view JSON-RPC 2.0 wire logs in real time.
 
 ---
 
 ## 🌐 Quick Matrix: Local vs Cloud LLMs with MCP
 
-| Provider Type | Examples | Function Calling Support | Context Limit Strategy | Ideal MCP Transport |
+| Provider Type | Recommended Models | Function Calling Support | Context Limit Strategy | Ideal MCP Transport |
 | :--- | :--- | :--- | :--- | :--- |
-| **Local LLMs** | Llama 3.1 8B, Qwen 2.5, Mistral | Good (via structured JSON / Ollama API) | Trim schemas, compact prompts | `stdio` |
-| **Cloud APIs** | Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro | Excellent (native tool calling) | Full rich JSON Schemas | `stdio` / `SSE` |
-| **Proxies / Gateways** | LiteLLM, OpenRouter, Custom OAuth Gateway | Provider-dependent | Routing rules & model fallback | `SSE` / WebSockets |
+| **Local LLMs** | Qwen 2.5 Coder (14B/32B), Llama 3.3 70B, DeepSeek-R1 | Excellent (via Ollama API & native tool choice) | 16K+ context (`num_ctx`), concise schemas | `stdio` |
+| **Cloud APIs** | Claude 3.7 Sonnet, Gemini 2.0 Flash, OpenAI o3-mini/GPT-4o | Outstanding (parallel execution & reasoning) | Full rich JSON Schemas | `stdio` / Streamable HTTP |
+| **Proxies / Gateways** | LiteLLM Proxy, OpenRouter, Custom Gateway | Provider-dependent | Routing rules & model fallback | Streamable HTTP / SSE |
 
 ---
 
